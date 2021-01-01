@@ -9503,8 +9503,353 @@ module.exports = function (regExp, replace) {
 "use strict";
 
 
-var greeting = 'Hello World';
-console.log(greeting);
+var _http = __webpack_require__(334);
+
+var _ui = __webpack_require__(335);
+
+// const greeting = 'Hello World';
+// console.log(greeting);
+
+// const person = require('./myModule1');
+// console.log(person.name, person.age);
+
+// // import {persons, sayHello} from './mymodule2';
+// import * as mod from './mymodule2';
+
+// console.log(mod.persons.name, mod.persons.age);
+
+// console.log(mod.sayHello());
+
+// import { greeting } from './mymodule2';
+// console.log(greeting);
+
+document.addEventListener('DOMContentLoaded', getPosts);
+
+function getPosts() {
+    _http.http.get('http://localhost:3000/posts').then(function (data) {
+        console.log(data);
+        _ui.ui.showPosts(data);
+    }).catch(function (err) {
+        console.log(err);
+    });
+}
+
+document.querySelector('.post-submit').addEventListener('click', addPost);
+
+function addPost() {
+    var title = document.querySelector('#title').value;
+    var body = document.querySelector('#body').value;
+
+    if (title !== '' && body !== '') {
+
+        var data = {
+            title: title,
+            body: body
+            // console.log(data);
+
+        };_http.http.post('http://localhost:3000/posts', data).then(function (data) {
+            _ui.ui.showAlert('Post added', 'success');
+            _ui.ui.clearFields();
+            getPosts(data);
+        }).catch(function (err) {
+            console.log(err);
+        });
+    } else {
+        alert('Please enter the post title and post body.');
+    }
+}
+
+document.querySelector('.delete').addEventListener('click', removePost);
+
+function removePost() {
+    console.log('remove post');
+}
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * EasyHTTP Library
+ * Library for making HTTP requests
+ *
+ * @version 3.0.0
+ * @author  Brad Traversy
+ * @license MIT
+ *
+ **/
+
+var EasyHTTP = function () {
+  function EasyHTTP() {
+    _classCallCheck(this, EasyHTTP);
+  }
+
+  _createClass(EasyHTTP, [{
+    key: 'get',
+
+    // Make an HTTP GET Request 
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(url) {
+        var response, resData;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch(url);
+
+              case 2:
+                response = _context.sent;
+                _context.next = 5;
+                return response.json();
+
+              case 5:
+                resData = _context.sent;
+                return _context.abrupt('return', resData);
+
+              case 7:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function get(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return get;
+    }()
+
+    // Make an HTTP POST Request
+
+  }, {
+    key: 'post',
+    value: function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(url, data) {
+        var response, resData;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return fetch(url, {
+                  method: 'POST',
+                  headers: {
+                    'Content-type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                });
+
+              case 2:
+                response = _context2.sent;
+                _context2.next = 5;
+                return response.json();
+
+              case 5:
+                resData = _context2.sent;
+                return _context2.abrupt('return', resData);
+
+              case 7:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function post(_x2, _x3) {
+        return _ref2.apply(this, arguments);
+      }
+
+      return post;
+    }()
+
+    // Make an HTTP PUT Request
+
+  }, {
+    key: 'put',
+    value: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(url, data) {
+        var response, resData;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return fetch(url, {
+                  method: 'PUT',
+                  headers: {
+                    'Content-type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+                });
+
+              case 2:
+                response = _context3.sent;
+                _context3.next = 5;
+                return response.json();
+
+              case 5:
+                resData = _context3.sent;
+                return _context3.abrupt('return', resData);
+
+              case 7:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function put(_x4, _x5) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return put;
+    }()
+
+    // Make an HTTP DELETE Request
+
+  }, {
+    key: 'delete',
+    value: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(url) {
+        var response, resData;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return fetch(url, {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-type': 'application/json'
+                  }
+                });
+
+              case 2:
+                response = _context4.sent;
+                _context4.next = 5;
+                return 'Resource Deleted...';
+
+              case 5:
+                resData = _context4.sent;
+                return _context4.abrupt('return', resData);
+
+              case 7:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function _delete(_x6) {
+        return _ref4.apply(this, arguments);
+      }
+
+      return _delete;
+    }()
+  }]);
+
+  return EasyHTTP;
+}();
+
+var http = exports.http = new EasyHTTP();
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var UI = function () {
+    function UI() {
+        _classCallCheck(this, UI);
+
+        this.titleInput = document.getElementById('title');
+        this.bodyInput = document.getElementById('body');
+        this.posts = document.querySelector('#posts');
+        this.idInput = document.querySelector('#id');
+        this.postSubmit = document.querySelector('.post-submit');
+        this.forState = 'add';
+    }
+
+    _createClass(UI, [{
+        key: 'showPosts',
+        value: function showPosts(posts) {
+            var output = '';
+
+            posts.forEach(function (post) {
+                console.log(post);
+                output += '\n                <div class="card mb-4">\n                    <div class="card-body">\n                        <h4 class="card-title">' + post.title + '</h4>\n                        <div class="card-body">' + post.body + '</div>\n                        <a href="#" class="edit card-link" data-id="' + post.id + '">\n                            <i class="fa fa-pencil"></i>\n                        </a>\n                        <a href="#" class="delete card-link" data-id="' + post.id + '">\n                        <i class="fa fa-remove"></i>\n                    </a>\n                    </div>   \n                </div>\n            ';
+            });
+
+            this.posts.innerHTML = output;
+        }
+    }, {
+        key: 'clearFields',
+        value: function clearFields() {
+            document.querySelector('#title').value = '';
+            document.querySelector('#body').value = '';
+        }
+    }, {
+        key: 'showAlert',
+        value: function showAlert(message, className) {
+            var _this = this;
+
+            this.clearAlert();
+
+            var div = document.createElement('div');
+            div.className = className + ' p-3 mb-4';
+            div.appendChild(document.createTextNode(message));
+            var container = document.querySelector('.postsContainer');
+            var post = document.querySelector('#posts');
+            container.insertBefore(div, posts);
+
+            setTimeout(function () {
+                _this.clearAlert();
+            }, 3000);
+        }
+    }, {
+        key: 'clearAlert',
+        value: function clearAlert() {
+            var currentAlert = document.querySelector('.alert');
+
+            if (currentAlert) {
+                currentAlert.remove();
+            }
+        }
+    }]);
+
+    return UI;
+}();
+
+var ui = exports.ui = new UI();
 
 /***/ })
 /******/ ]);

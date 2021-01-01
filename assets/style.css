@@ -4,3 +4,8 @@
 .fa-remove{
     color: red;
 }
+.success{
+    color: green;
+    border: 1px solid green;
+    background-color: rgb(209, 247, 160);
+}
